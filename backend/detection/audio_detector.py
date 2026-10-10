@@ -4,10 +4,16 @@ import logging
 import numpy as np
 import tensorflow as tf
 
-import config
-from preprocessing.audio_preprocessing import extract_audio_features, generate_audio_visualizations
-from models.train_audio import build_audio_model, train_audio_model
-from database.detections import save_detection
+try:
+    from backend import config
+    from backend.preprocessing.audio_preprocessing import extract_audio_features, generate_audio_visualizations
+    from backend.models.train_audio import build_audio_model, train_audio_model
+    from backend.database.detections import save_detection
+except ImportError:
+    import config
+    from preprocessing.audio_preprocessing import extract_audio_features, generate_audio_visualizations
+    from models.train_audio import build_audio_model, train_audio_model
+    from database.detections import save_detection
 
 logger = logging.getLogger("detection.audio")
 

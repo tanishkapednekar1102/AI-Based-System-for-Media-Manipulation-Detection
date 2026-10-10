@@ -1,7 +1,11 @@
 import logging
 import mysql.connector
 from mysql.connector import errorcode
-import config
+
+try:
+    from backend import config
+except ImportError:
+    import config
 
 logger = logging.getLogger("database.connection")
 

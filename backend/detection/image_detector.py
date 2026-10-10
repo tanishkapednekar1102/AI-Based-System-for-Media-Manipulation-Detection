@@ -4,10 +4,16 @@ import logging
 import numpy as np
 import tensorflow as tf
 
-import config
-from preprocessing.image_preprocessing import preprocess_image, convert_to_ela_image
-from models.train_image import build_image_model, train_image_model
-from database.detections import save_detection
+try:
+    from backend import config
+    from backend.preprocessing.image_preprocessing import preprocess_image, convert_to_ela_image
+    from backend.models.train_image import build_image_model, train_image_model
+    from backend.database.detections import save_detection
+except ImportError:
+    import config
+    from preprocessing.image_preprocessing import preprocess_image, convert_to_ela_image
+    from models.train_image import build_image_model, train_image_model
+    from database.detections import save_detection
 
 logger = logging.getLogger("detection.image")
 

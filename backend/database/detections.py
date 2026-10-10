@@ -1,6 +1,10 @@
 import logging
 from datetime import datetime
-from database.connection import get_connection, is_db_connected
+
+try:
+    from backend.database.connection import get_connection, is_db_connected
+except ImportError:
+    from database.connection import get_connection, is_db_connected
 
 logger = logging.getLogger("database.detections")
 

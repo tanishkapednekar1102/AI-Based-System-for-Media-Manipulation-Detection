@@ -6,7 +6,10 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-import config
+try:
+    from backend import config
+except ImportError:
+    import config
 
 def extract_audio_features(audio_path: str, duration_sec: float = 5.0, sample_rate: int = 22050):
     """

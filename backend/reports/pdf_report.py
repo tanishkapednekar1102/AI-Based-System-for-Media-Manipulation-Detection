@@ -6,8 +6,12 @@ from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
-import config
-from database.reports import save_report_metadata
+try:
+    from backend import config
+    from backend.database.reports import save_report_metadata
+except ImportError:
+    import config
+    from database.reports import save_report_metadata
 
 def generate_pdf_report(detection_data: dict, user_name: str = "Registered User") -> str:
     """

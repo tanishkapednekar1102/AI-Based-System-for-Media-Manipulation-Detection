@@ -2,12 +2,14 @@ import os
 import sys
 import numpy as np
 
-# Ensure parent directory is in python path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+try:
+    from backend import config
+except ImportError:
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    import config
 
 import tensorflow as tf
 from tensorflow.keras import layers, models, optimizers
-import config
 
 def build_image_model(input_shape=(224, 224, 3)):
     """
