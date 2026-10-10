@@ -1,20 +1,12 @@
 import os
 from nicegui import ui
 
-try:
-    from backend import config
-    from backend.detection.image_detector import detect_image
-    from backend.detection.video_detector import detect_video
-    from backend.detection.audio_detector import detect_audio
-    from backend.reports.pdf_report import generate_pdf_report
-    from frontend.components.layout import STYLE_BG, STYLE_CARD, render_dashboard_layout, render_disclaimer_card, render_result_badge
-except ImportError:
-    import config
-    from detection.image_detector import detect_image
-    from detection.video_detector import detect_video
-    from detection.audio_detector import detect_audio
-    from reports.pdf_report import generate_pdf_report
-    from components.layout import STYLE_BG, STYLE_CARD, render_dashboard_layout, render_disclaimer_card, render_result_badge
+from backend import config
+from backend.detection.image_detector import detect_image
+from backend.detection.video_detector import detect_video
+from backend.detection.audio_detector import detect_audio
+from backend.reports.pdf_report import generate_pdf_report
+from frontend.components.layout import STYLE_BG, STYLE_CARD, render_dashboard_layout, render_disclaimer_card, render_result_badge
 
 def render_detection_result_card(res: dict, user: dict):
     """Renders comprehensive analysis result card for image, video, and audio detections."""

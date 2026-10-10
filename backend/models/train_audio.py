@@ -2,20 +2,24 @@ import os
 import sys
 import numpy as np
 
-try:
-    from backend import config
-except ImportError:
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    import config
+from backend import config
 
-import tensorflow as tf
-from tensorflow.keras import layers, models, optimizers
+try:
+    import tensorflow as tf
+    from tensorflow.keras import layers, models, optimizers
+    HAS_TF = True
+except Exception as err:
+    tf = None
+    HAS_TF = False
 
 def build_audio_model(input_shape=(128, 128, 1)):
     """
     Builds a 2D Spectrogram CNN for Synthetic/Manipulated Audio Detection.
     Inputs 128x128 Mel Spectrogram matrices and detects synthetic voice artifacts.
     """
+    if not HAS_TF:
+        raise RuntimeError("TensorFlow is not available in the current environment.")
+
     model = models.Sequential([
         layers.Input(shape=input_shape),
         
@@ -43,6 +47,9 @@ def build_audio_model(input_shape=(128, 128, 1)):
 
 def train_audio_model(epochs=5, batch_size=8):
     """Training pipeline for Audio Synthetic/Manipulation Detector."""
+    if not HAS_TF:
+        raise RuntimeError("TensorFlow is required to train the audio model.")
+
     print("=" * 60)
     print("Starting Audio Synthetic/Manipulation Detection Model Training Pipeline")
     print("=" * 60)

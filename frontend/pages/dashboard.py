@@ -2,14 +2,9 @@ import os
 from datetime import datetime
 from nicegui import ui
 
-try:
-    from backend.database.detections import get_user_detections, get_analytics_summary
-    from backend.reports.pdf_report import generate_pdf_report
-    from frontend.components.layout import STYLE_BG, STYLE_CARD, render_dashboard_layout, render_disclaimer_card
-except ImportError:
-    from database.detections import get_user_detections, get_analytics_summary
-    from reports.pdf_report import generate_pdf_report
-    from components.layout import STYLE_BG, STYLE_CARD, render_dashboard_layout, render_disclaimer_card
+from backend.database.detections import get_user_detections, get_analytics_summary
+from backend.reports.pdf_report import generate_pdf_report
+from frontend.components.layout import STYLE_BG, STYLE_CARD, render_dashboard_layout, render_disclaimer_card
 
 def register_dashboard_routes():
     @ui.page('/dashboard')

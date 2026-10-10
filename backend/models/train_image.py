@@ -2,20 +2,24 @@ import os
 import sys
 import numpy as np
 
-try:
-    from backend import config
-except ImportError:
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    import config
+from backend import config
 
-import tensorflow as tf
-from tensorflow.keras import layers, models, optimizers
+try:
+    import tensorflow as tf
+    from tensorflow.keras import layers, models, optimizers
+    HAS_TF = True
+except Exception as err:
+    tf = None
+    HAS_TF = False
 
 def build_image_model(input_shape=(224, 224, 3)):
     """
     Builds a Convolutional Neural Network (CNN) for Image Media Manipulation Detection.
     Architecture: Multi-stage Conv2D + BatchNorm + MaxPooling + Dense Dropout Classifier.
     """
+    if not HAS_TF:
+        raise RuntimeError("TensorFlow is not available in the current environment.")
+
     model = models.Sequential([
         layers.Input(shape=input_shape),
         
@@ -53,6 +57,9 @@ def train_image_model(epochs=5, batch_size=8):
     Training pipeline for Image Manipulation Detector.
     Loads dataset from dataset/image/ (real vs manipulated).
     """
+    if not HAS_TF:
+        raise RuntimeError("TensorFlow is required to train the image model.")
+
     print("=" * 60)
     print("Starting Image Manipulation Detection Model Training Pipeline")
     print("=" * 60)

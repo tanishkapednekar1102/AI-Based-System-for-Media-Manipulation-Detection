@@ -1,10 +1,6 @@
 from nicegui import ui
-try:
-    from backend import config
-    from frontend.components.layout import STYLE_BG, STYLE_CARD, render_public_header, render_disclaimer_card
-except ImportError:
-    import config
-    from components.layout import STYLE_BG, STYLE_CARD, render_public_header, render_disclaimer_card
+from backend import config
+from frontend.components.layout import STYLE_BG, STYLE_CARD, render_public_header, render_disclaimer_card
 
 def register_public_routes():
     @ui.page('/')

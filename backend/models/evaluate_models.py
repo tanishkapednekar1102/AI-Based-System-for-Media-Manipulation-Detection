@@ -4,19 +4,24 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 
-try:
-    from backend import config
-except ImportError:
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    import config
+from backend import config
 
-import tensorflow as tf
+try:
+    import tensorflow as tf
+    HAS_TF = True
+except Exception as err:
+    tf = None
+    HAS_TF = False
 
 def evaluate_single_model(model_path: str, model_name: str, test_data=None, test_labels=None):
     """
     Evaluates a Keras model on a given test dataset using Scikit-Learn evaluation metrics.
     """
     print(f"\n--- Evaluating Model: {model_name} ---")
+    if not HAS_TF:
+        print("[STATUS] TensorFlow is not active in this environment.")
+        return None
+
     if not os.path.exists(model_path):
         print(f"[STATUS] Model binary not found at: {model_path}")
         print("Run the corresponding training script to generate the model checkpoint.")

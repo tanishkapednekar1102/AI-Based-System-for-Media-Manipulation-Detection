@@ -2,20 +2,24 @@ import os
 import sys
 import numpy as np
 
-try:
-    from backend import config
-except ImportError:
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    import config
+from backend import config
 
-import tensorflow as tf
-from tensorflow.keras import layers, models, optimizers
+try:
+    import tensorflow as tf
+    from tensorflow.keras import layers, models, optimizers
+    HAS_TF = True
+except Exception as err:
+    tf = None
+    HAS_TF = False
 
 def build_video_frame_model(input_shape=(224, 224, 3)):
     """
     Builds a Frame-Level Feature Classifier CNN for Video Media Manipulation Detection.
     Evaluates individual sampled video frames for facial manipulation artifacts.
     """
+    if not HAS_TF:
+        raise RuntimeError("TensorFlow is not available in the current environment.")
+
     model = models.Sequential([
         layers.Input(shape=input_shape),
         
@@ -43,6 +47,9 @@ def build_video_frame_model(input_shape=(224, 224, 3)):
 
 def train_video_model(epochs=5, batch_size=8):
     """Training pipeline for Video Manipulation Detector."""
+    if not HAS_TF:
+        raise RuntimeError("TensorFlow is required to train the video model.")
+
     print("=" * 60)
     print("Starting Video Manipulation Detection Model Training Pipeline")
     print("=" * 60)

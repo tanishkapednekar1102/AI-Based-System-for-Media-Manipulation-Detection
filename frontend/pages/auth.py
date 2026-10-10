@@ -1,11 +1,7 @@
 from nicegui import ui, app
 
-try:
-    from backend.database.users import register_user, authenticate_user
-    from frontend.components.layout import STYLE_BG, STYLE_CARD, render_public_header
-except ImportError:
-    from database.users import register_user, authenticate_user
-    from components.layout import STYLE_BG, STYLE_CARD, render_public_header
+from backend.database.users import register_user, authenticate_user
+from frontend.components.layout import STYLE_BG, STYLE_CARD, render_public_header
 
 def register_auth_routes():
     @ui.page('/register')
