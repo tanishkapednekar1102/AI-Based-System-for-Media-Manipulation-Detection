@@ -1,0 +1,38 @@
+# Environment & Secrets
+.env
+.env.local
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+.nicegui/
+
+# Media Uploads & Generated Outputs
+uploads/*
+!uploads/.gitkeep
+results/*
+!results/.gitkeep
+results/pdf_reports/*
+
+# Trained Models (Heavy binaries)
+models/**/*.h5
+models/**/*.keras
+models/**/*.pkl
+
+# Dataset media files (Store instructions instead)
+dataset/image/real/*
+dataset/image/manipulated/*
+dataset/video/real/*
+dataset/video/manipulated/*
+dataset/audio/real/*
+dataset/audio/synthetic/*
